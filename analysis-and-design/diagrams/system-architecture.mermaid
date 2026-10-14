@@ -1,0 +1,40 @@
+```mermaid
+graph TD
+    subgraph ClientLayer["🖥️ Tầng Khách (Client Layer)"]
+        WebClient["Web Browser (SPA / Responsive)"]
+        MobileClient["Mobile Web / PWA"]
+    end
+
+    subgraph SecurityGateway["🛡️ Tầng Bảo Mật & Định Tuyến"]
+        Nginx["Reverse Proxy / Nginx"]
+        RateLimiter["Rate Limiter & CORS"]
+        JWTAuth["JWT Authentication Filter"]
+    end
+
+    subgraph ServiceLayer["⚙️ Tầng Nghiệp Vụ (Node.js Application)"]
+        AuthController["Auth Controller"]
+        UserController["User & Profile Controller"]
+        NutritionController["Nutrition Tracking Controller"]
+        RecommenderEngine["AI / Rule-based Meal Recommender"]
+    end
+
+    subgraph DataLayer["🗄️ Tầng Dữ Liệu (Data Layer)"]
+        PostgresDB[(PostgreSQL Primary DB)]
+        RedisCache[(Redis Cache - Popular Foods)]
+    end
+
+    WebClient -->|HTTPS / JSON| Nginx
+    MobileClient -->|HTTPS / JSON| Nginx
+    Nginx --> RateLimiter
+    RateLimiter --> JWTAuth
+    JWTAuth --> AuthController
+    JWTAuth --> UserController
+    JWTAuth --> NutritionController
+    JWTAuth --> RecommenderEngine
+
+    NutritionController --> RedisCache
+    NutritionController --> PostgresDB
+    RecommenderEngine --> PostgresDB
+    UserController --> PostgresDB
+    AuthController --> PostgresDB
+```

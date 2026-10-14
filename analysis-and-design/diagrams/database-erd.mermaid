@@ -1,0 +1,64 @@
+```mermaid
+erDiagram
+    USERS ||--|| HEALTH_PROFILES : "has"
+    USERS ||--o{ DAILY_MEALS : "logs"
+    DAILY_MEALS ||--|{ MEAL_ITEMS : "contains"
+    FOOD_CATEGORIES ||--o{ FOODS : "groups"
+    FOODS ||--o{ MEAL_ITEMS : "referenced_in"
+
+    USERS {
+        int id PK
+        string email
+        string password_hash
+        string full_name
+        string role
+        datetime created_at
+    }
+
+    HEALTH_PROFILES {
+        int id PK
+        int user_id FK
+        string gender
+        int age
+        decimal height_cm
+        decimal weight_kg
+        string activity_level
+        string target_goal
+        int daily_calorie_target
+    }
+
+    FOOD_CATEGORIES {
+        int id PK
+        string name
+        string description
+    }
+
+    FOODS {
+        int id PK
+        int category_id FK
+        string name
+        string serving_unit
+        decimal serving_weight_g
+        decimal calories
+        decimal protein
+        decimal carbs
+        decimal fat
+        decimal fiber
+    }
+
+    DAILY_MEALS {
+        int id PK
+        int user_id FK
+        date meal_date
+        string meal_type
+        decimal total_calories
+    }
+
+    MEAL_ITEMS {
+        int id PK
+        int meal_id FK
+        int food_id FK
+        decimal serving_quantity
+        decimal calculated_calories
+    }
+```

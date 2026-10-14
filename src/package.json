@@ -1,0 +1,21 @@
+{
+  "name": "nutriviet3-backend",
+  "version": "1.0.0",
+  "description": "Backend API for NutriViet3 - Vietnamese Nutrition Tracking & Recommendation System",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "nutrition",
+    "vietnam",
+    "diet",
+    "health",
+    "nutriviet"
+  ],
+  "author": "NutriViet3 Team",
+  "license": "MIT"
+}
